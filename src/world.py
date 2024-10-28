@@ -69,8 +69,6 @@ def check_comple(level, player, health_bar, enemy_group):
     return player, health_bar, level
 
 
-
-
 class World:
     def __init__(self, world_data):
         self.world_data = world_data
