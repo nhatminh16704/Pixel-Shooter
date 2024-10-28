@@ -7,7 +7,7 @@ from world import World, load_level, check_comple
 from background import draw_bg
 
 
-load_sound()
+# load_sound()
 
 SCROLL = 0
 
@@ -92,3 +92,9 @@ while running:
     
     # Update the display
     pygame.display.flip()
+       # Set frame rate (e.g., 60 frames per second)
+    clock.tick(60)  # This will make the game run at 60 FPS
+
+# Cleanly exit Pygame
+pygame.quit()                                                                                  
+sys.exit()
