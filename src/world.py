@@ -5,6 +5,7 @@ from const import MAX_COLS, ROWS, TILE_SIZE, level_comple, MAX_LEVEL
 from player import Player
 from ui import HealthBar
 
+
 def reset_level():
     from main import enemy_group, bullet_group, grenade_group, explosion_group
     enemy_group.empty()
@@ -67,8 +68,6 @@ def check_comple(level, player, health_bar, enemy_group):
                 # Kết thúc trò chơi nếu không có tệp CSV cho màn mới
                 player.alive = False  
     return player, health_bar, level
-
-
 
 
 class World:

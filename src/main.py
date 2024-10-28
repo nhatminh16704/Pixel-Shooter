@@ -99,4 +99,3 @@ while running:
 # Cleanly exit Pygame
 pygame.quit()                                                                                  
 sys.exit()
-                                                                                              
