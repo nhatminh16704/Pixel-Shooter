@@ -3,22 +3,19 @@ import sys
 from utils import load_sound
 from const import SCREEN_HEIGHT, SCREEN_WIDTH
 from ui import draw_equiqment
-from world import World, load_level
-
-# Initialize Pygame
-pygame.init()
+from world import World, load_level, check_comple
+from background import draw_bg
 
 
-
-load_sound()
+# load_sound()
 
 SCROLL = 0
 
 
 # Set the dimensions of the window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-bg_img = pygame.image.load("assets/Background.png").convert_alpha()
-bg_img = pygame.transform.scale(bg_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
+# bg_img = pygame.image.load("assets/Background.png").convert_alpha()
+# bg_img = pygame.transform.scale(bg_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Set the title of the window
 pygame.display.set_caption("Shooter")
@@ -32,8 +29,9 @@ enemy_group = pygame.sprite.Group()
 # Create a clock object to control the frame rate
 clock = pygame.time.Clock()
 			
+# Initialize Pygame
+pygame.init()
 
-		
 
 
 # Load the initial level
@@ -55,10 +53,16 @@ while running:
     
 		 # Get key states (which keys are pressed)
     keys = pygame.key.get_pressed()
-    screen.blit(bg_img, (0, 0))
-    world.draw(screen, SCROLL)
+    # screen.blit(bg_img, (0, 0))
+
     # Update player position based on key presses
     SCROLL = player1.move(keys, bullet_group, grenade_group, world.tile_rects, world.items)
+    draw_bg(SCROLL)
+    world.draw(screen, SCROLL)
+    if player1.reached_exit:
+        player1, health_bar, current_level = check_comple(current_level, player1, health_bar, enemy_group)
+        player1.reached_exit = False
+
     player1.update_animation()
     player1.check_alive()
     player1.check_hurt()
@@ -85,6 +89,7 @@ while running:
         ex.draw(screen, SCROLL)
   
     # load_level(current_level)
+    
     # Update the display
     pygame.display.flip()
     

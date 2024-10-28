@@ -1,11 +1,21 @@
 import csv
 import os
 import pygame
-from const import MAX_COLS, ROWS, TILE_SIZE
+from const import MAX_COLS, ROWS, TILE_SIZE, level_comple, MAX_LEVEL
 from player import Player
 from ui import HealthBar
 
-
+def reset_level():
+    from main import enemy_group, bullet_group, grenade_group, explosion_group
+    enemy_group.empty()
+    bullet_group.empty()
+    grenade_group.empty()
+    explosion_group.empty()
+    data = []
+    for row in range(ROWS):
+        r = [-1] * MAX_COLS
+        data.append(r)
+    return data
     
 # Function to load the level data from a CSV file
 def load_level(level):
@@ -25,6 +35,39 @@ def load_level(level):
         print(f"Level {level} data file not found at {file_path}.")
         
     return world_data
+
+def check_comple(level, player, health_bar, enemy_group):
+    global level_comple  # Nếu `level_comple` là một cờ toàn cục
+
+    if player.reached_exit:
+        level += 1
+        world_data = reset_level()
+        
+        if level <= MAX_LEVEL:
+            # Tải dữ liệu màn mới từ tệp CSV
+            file_path = os.path.join(f'level{level}_data.csv')
+            if os.path.exists(file_path):
+                with open(file_path, newline='') as csvfile:
+                    reader = csv.reader(csvfile, delimiter=',')
+                    for y, row in enumerate(reader):
+                        for x, tile in enumerate(row):
+                            world_data[y][x] = int(tile)
+                
+                # Xử lý và cập nhật dữ liệu màn mới
+                world = World(world_data)
+                player, health_bar = world.process_data(enemy_group)
+                
+                # Đặt lại `reached_exit` để không chuyển màn lại khi player đang ở màn mới
+                player.reached_exit = False
+                print(f"Level {level} loaded successfully.")
+                
+                return player, health_bar, level
+            else:
+                print(f"Level {level} data file not found.")
+                # Kết thúc trò chơi nếu không có tệp CSV cho màn mới
+                player.alive = False  
+    return player, health_bar, level
+
 
 
 
@@ -54,17 +97,17 @@ class World:
         # Loop through each row and column in the world data
         for y, row in enumerate(self.world_data):
             for x, tile in enumerate(row):
-                                # If the tile is 15, create the player
+                # If the tile is 25, create the player
                 if tile == 25:
                     self.player = Player('Main_char', x * TILE_SIZE, y * TILE_SIZE, 1, 20, 5)
                     self.health_bar = HealthBar(self.player.health)
                 
-                # If the tile is 16, create an enemy and add to the enemy group
+                # If the tile is 26, create an enemy and add to the enemy group
                 elif tile == 26:
                     enemy = Player('Enemy', x * TILE_SIZE, y * TILE_SIZE, 1.8, 30, 5)
                     enemy_group.add(enemy)
                 # Skip empty tiles (assuming TILE_TYPES - 1 is the empty tile)
-                                # Health box at tile 0
+                # Health box at tile 29
                 elif tile == 29:
                     img = self.tile_list[tile]
                     img_rect = img.get_rect(topleft=(x * TILE_SIZE, y * TILE_SIZE))
@@ -81,10 +124,18 @@ class World:
                     img = self.tile_list[tile]
                     img_rect = img.get_rect(topleft=(x * TILE_SIZE, y * TILE_SIZE))
                     self.items.append(('grenade', img, img_rect))  # Add as 'grenade' type
-                elif tile == 23:  # Exit tile
+                elif tile >= 23 and tile <= 24:  # water tile
                     img = self.tile_list[tile]
                     img_rect = img.get_rect(topleft=(x * TILE_SIZE, y * TILE_SIZE))
-                    self.items.append(('exit', img, img_rect))  # Add exit as 'exit' type
+                    self.items.append(('water', img, img_rect))  # Add exit as 'water' type
+                elif tile == 22:
+                    img = self.tile_list[tile]
+                    img_rect = img.get_rect(topleft=(x * TILE_SIZE, y * TILE_SIZE))
+                    self.items.append(('exit', img, img_rect))
+                elif tile >= 12 and tile <= 21:
+                    img = self.tile_list[tile]
+                    img_rect = img.get_rect(topleft=(x * TILE_SIZE, y * TILE_SIZE))
+                    self.items.append(('decaration', img, img_rect))
                 elif tile >= 0 and tile < len(self.tile_list) - 1:
                     # Calculate the position where the tile should be drawn
                     img = self.tile_list[tile]
