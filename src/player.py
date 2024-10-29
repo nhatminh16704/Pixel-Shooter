@@ -22,7 +22,7 @@ class Player(pygame.sprite.Sprite):
 		self.ammo = ammo
 		self.start_ammo = ammo
 		self.alive = True
-		self.health = 200 if char_type == 'Main_char' else 100
+		self.health = 1000 if char_type == 'Main_char' else 100
 		self.max_health = self.health
 		self.throw_cooldown = 1000
 		self.last_throw = pygame.time.get_ticks()
