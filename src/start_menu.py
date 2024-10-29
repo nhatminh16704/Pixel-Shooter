@@ -1,6 +1,6 @@
 import pygame
 
-from src.Button import Button
+from src.button import Button
 from src.const import SCREEN_WIDTH, SCREEN_HEIGHT, BLACK
 
 
