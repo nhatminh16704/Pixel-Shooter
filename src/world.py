@@ -5,6 +5,7 @@ from const import MAX_COLS, ROWS, TILE_SIZE, level_comple, MAX_LEVEL
 from player import Player
 from ui import HealthBar
 
+
 def reset_level():
     from main import enemy_group, bullet_group, grenade_group, explosion_group
     enemy_group.empty()

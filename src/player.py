@@ -126,6 +126,7 @@ class Player(pygame.sprite.Sprite):
 						elif item_type == 'decoration':
 							pass
 
+
 		# Animation logic
 		if self.alive:
 			if not self.on_ground:
