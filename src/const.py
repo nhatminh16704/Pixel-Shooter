@@ -6,7 +6,7 @@ TILE_SIZE = SCREEN_HEIGHT // ROWS
 PLAYER_SPEED = 3
 WHITE = (255, 255, 255)
 SCROLL_THRESHOLD = 200
-level_complete = False
+level_comple = False
 MAX_LEVEL = 3
 
 #colors
