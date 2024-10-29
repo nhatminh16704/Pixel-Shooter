@@ -1,6 +1,5 @@
 import pygame
 import sys
-
 from game_over_screen import game_over_screen
 from start_menu import start_menu
 from utils import load_sound
