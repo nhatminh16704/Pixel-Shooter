@@ -76,8 +76,11 @@ class World:
           img = self.tile_list[tile]
           img_rect = img.get_rect(topleft=(x * TILE_SIZE, y * TILE_SIZE))
           self.items.append(('exit', img, img_rect))
-        
-        elif tile == 22 or tile == 13 or tile == 15 or tile == 20 or tile == 21:
+        elif tile == 22:
+          img = self.tile_list[tile]
+          img_rect = img.get_rect(topleft=(x * TILE_SIZE, y * TILE_SIZE))
+          self.items.append(('endgamepoint', img, img_rect))
+        elif tile == 13 or tile == 15 or tile == 20 or tile == 21:
           img = self.tile_list[tile]
           img_rect = img.get_rect(topleft=(x * TILE_SIZE, y * TILE_SIZE))
           self.items.append(('lol', img, img_rect))

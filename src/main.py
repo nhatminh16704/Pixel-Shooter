@@ -1,8 +1,7 @@
 import pygame
 import sys
-
-from src.game_over_screen import game_over_screen
-from src.start_menu import start_menu
+from game_over_screen import game_over_screen
+from start_menu import start_menu
 from utils import load_sound
 from const import SCREEN_HEIGHT, SCREEN_WIDTH
 from ui import draw_equiqment

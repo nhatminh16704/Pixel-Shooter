@@ -1,8 +1,8 @@
 import pygame
 
-from src.button import Button
-from src.const import SCREEN_WIDTH, SCREEN_HEIGHT, BLACK, NAVY_BLUE
-from src.screen_fade import ScreenFade
+from button import Button
+from const import SCREEN_WIDTH, SCREEN_HEIGHT, BLACK, NAVY_BLUE
+from screen_fade import ScreenFade
 
 
 def game_over_screen():

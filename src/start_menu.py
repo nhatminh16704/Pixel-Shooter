@@ -1,7 +1,7 @@
 import pygame
 
-from src.button import Button
-from src.const import SCREEN_WIDTH, SCREEN_HEIGHT, BLACK
+from button import Button
+from const import SCREEN_WIDTH, SCREEN_HEIGHT, BLACK
 
 
 def start_menu():

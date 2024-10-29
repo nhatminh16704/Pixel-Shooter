@@ -117,6 +117,8 @@ class Player(pygame.sprite.Sprite):
 						elif item_type == 'grenade':
 								self.grenades += 1
 								items.remove(item)  # Remove grenade box after collection
+						elif item_type == 'endgamepoint':
+								print("endgamepoint")
 						elif item_type == 'exit':  # Exit tile collision
 								self.health = 0  # Set health to zero to kill the player
 								self.alive = False  # Set alive status to False
