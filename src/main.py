@@ -6,11 +6,9 @@ from ui import draw_equiqment
 from world import World, load_level, check_comple
 from background import draw_bg
 
-
-# load_sound()
+load_sound()
 
 SCROLL = 0
-
 
 # Set the dimensions of the window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -18,9 +16,9 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # bg_img = pygame.transform.scale(bg_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Set the title of the window
-pygame.display.set_caption("Shooter")
+pygame.display.set_caption("Pixels Shooter")
 
-# Create a group for bullets
+# Create sprite groups
 bullet_group = pygame.sprite.Group()
 grenade_group = pygame.sprite.Group()
 explosion_group = pygame.sprite.Group()
@@ -39,16 +37,14 @@ current_level = 0
 world_data = load_level(current_level)
 world = World(world_data)
 player1, health_bar = world.process_data(enemy_group)
-# Create a HealthBar instance
-
 
 # Main loop
 running = True
 while running:
-    # Event handling
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+  # Event handling
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      running = False
 
     
 		 # Get key states (which keys are pressed)
@@ -97,5 +93,6 @@ while running:
     clock.tick(60)  # This will make the game run at 60 FPS
 
 # Cleanly exit Pygame
-pygame.quit()                                                                                  
+pygame.quit()
 sys.exit()
+
