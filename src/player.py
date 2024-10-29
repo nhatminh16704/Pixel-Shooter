@@ -32,6 +32,7 @@ class Player(pygame.sprite.Sprite):
 		self.speed = 2
 		self.is_npc = True if char_type == 'Enemy' else False
 		self.is_reloading = False  # Flag to track if the player is reloading
+		self.reached_exit = False
   
 		#npc var
 		self.patrol_direction = 1
@@ -102,26 +103,30 @@ class Player(pygame.sprite.Sprite):
 								self.rect.top = tile[1].bottom
 								self.vel_y = 0  # Stop upward movement
 
-
-
 		# **Item Collection and Exit Collision Logic**
 		for item in items[:]:  # Iterate over a copy of the list
 				item_type, item_img, item_rect = item
 				if self.rect.colliderect(item_rect):  # Check collision with each item
 						if item_type == 'health':
-								self.health = min(self.health + 50, self.max_health)
-								items.remove(item)  # Remove health box after collection
+							self.health = min(self.health + 50, self.max_health)
+							items.remove(item)  # Remove health box after collection
 						elif item_type == 'ammo':
-								self.ammo += 10
-								items.remove(item)  # Remove ammo box after collection
+							self.ammo += 10
+							items.remove(item)  # Remove ammo box after collection
 						elif item_type == 'grenade':
-								self.grenades += 1
-								items.remove(item)  # Remove grenade box after collection
-						elif item_type == 'exit':  # Exit tile collision
-								self.health = 0  # Set health to zero to kill the player
-								self.alive = False  # Set alive status to False
-								# Do not remove the exit tile
-      
+							self.grenades += 1
+							items.remove(item)  # Remove grenade box after collection
+						elif item_type == 'water':  # water tile collision
+							self.health = 0  # Set health to zero to kill the player
+							self.alive = False  # Set alive status to False
+							# Do not remove the exit tile
+						elif item_type == 'exit':#check collision with exit
+							self.reached_exit = True
+							print("You have reached the exit!")
+						elif item_type == 'decoration':
+							pass
+
+
 		# Animation logic
 		if self.alive:
 			if not self.on_ground:
@@ -153,6 +158,7 @@ class Player(pygame.sprite.Sprite):
 			scroll = -dx
 
 		return scroll
+	
 	def shoot(self, bullet_group):
   
 		cur_time = pygame.time.get_ticks()
