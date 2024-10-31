@@ -28,7 +28,7 @@ def end_screen():
 
     # define font
     title_font = pygame.font.Font('assets/title_text_font.ttf', 40)
-    end_text1 = title_font.render("PIXEL SHOOTER IS END.", True, BLACK)
+    end_text1 = title_font.render("YOU WIN.", True, BLACK)
     end_text2 = title_font.render("THANKS FOR PLAYING!", True, BLACK)
 
     # Based between the screen
