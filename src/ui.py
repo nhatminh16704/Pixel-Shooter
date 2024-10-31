@@ -28,7 +28,7 @@ class HealthBar:
   #   # Reset health to maximum
   #   self.current_health = self.max_health
 
-def draw_equiqment(screen, player, scale=0.08):
+def draw_equipment(screen, player, scale=0.08):
   # Initialize font for text
   font = pygame.font.SysFont('Futura', 30)
 
