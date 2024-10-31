@@ -1,10 +1,12 @@
 import pygame
 import sys
 from game_over_screen import game_over_screen
+from const import MAX_LEVEL
+from end_game_screen import end_screen
 from start_menu import start_menu
 from utils import load_sound
 from const import SCREEN_HEIGHT, SCREEN_WIDTH
-from ui import draw_equiqment
+from ui import draw_equipment
 from world import World, load_level
 
 # Initialize Pygame
@@ -71,7 +73,8 @@ while running:
             screen.blit(bg_img, (0, 0))
             world.draw(screen, SCROLL)
             # Update player position based on key presses
-            SCROLL = player1.move(keys, bullet_group, grenade_group, world.tile_rects, world.items)
+            SCROLL, level_complete = player1.move(keys, bullet_group,
+                                                  grenade_group, world.tile_rects, world.items)
             player1.update_animation()
             player1.check_alive()
             player1.check_hurt()
@@ -91,13 +94,20 @@ while running:
 
             player1.draw(screen, SCROLL)
             health_bar.draw(screen)
-            draw_equiqment(screen, player1)
+            draw_equipment(screen, player1)
             # Draw the bullets
             bullet_group.draw(screen)
             for grenade in grenade_group:
                 grenade.draw(screen, SCROLL)
             for ex in explosion_group:
                 ex.draw(screen, SCROLL)
+            if level_complete: #check if player has completed current level
+                current_level += 1
+                if current_level <= MAX_LEVEL:
+                    reset()
+                else:
+                    end_screen()
+                    running = False
         else:
             restart_game, exit_game = game_over_screen()
             if restart_game:
