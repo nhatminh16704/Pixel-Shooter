@@ -26,7 +26,7 @@ bg_img = pygame.transform.scale(bg_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Set the title of the window
 pygame.display.set_caption("Pixel Shooter")
-logo = pygame.image.load('assets/logo.png')
+logo = pygame.image.load("assets/logo.png")
 pygame.display.set_icon(logo)
 
 # Create group
@@ -73,15 +73,18 @@ while running:
             screen.blit(bg_img, (0, 0))
             world.draw(screen, SCROLL)
             # Update player position based on key presses
-            SCROLL, level_complete = player1.move(keys, bullet_group,
-                                                  grenade_group, world.tile_rects, world.items)
+            SCROLL, level_complete = player1.move(
+                keys, bullet_group, grenade_group, world.tile_rects, world.items
+            )
             player1.update_animation()
             player1.check_alive()
             player1.check_hurt()
 
             # Update groups
             bullet_group.update(player1, enemy_group, world.tile_rects)
-            grenade_group.update(explosion_group, enemy_group, player1, world.tile_rects)
+            grenade_group.update(
+                explosion_group, enemy_group, player1, world.tile_rects
+            )
             explosion_group.update()
             health_bar.update_health(player1.health)
 
@@ -101,7 +104,7 @@ while running:
                 grenade.draw(screen, SCROLL)
             for ex in explosion_group:
                 ex.draw(screen, SCROLL)
-            if level_complete: #check if player has completed current level
+            if level_complete:  # check if player has completed current level
                 current_level += 1
                 if current_level <= MAX_LEVEL:
                     reset()
