@@ -39,7 +39,7 @@ enemy_group = pygame.sprite.Group()
 clock = pygame.time.Clock()
 
 # Load the initial level
-current_level = 0
+current_level = 2
 world_data = load_level(current_level)
 world = World(world_data)
 player1, health_bar = world.process_data(enemy_group)
